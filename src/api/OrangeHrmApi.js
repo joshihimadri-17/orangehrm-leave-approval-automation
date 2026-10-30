@@ -66,10 +66,13 @@ class OrangeHrmApi {
     return holidays.map((h) => h.date);
   }
 
-  /** All leave requests of one employee in a date range, as seen by an admin/supervisor. */
-  async getLeaveRequests({ empNumber, fromDate, toDate }) {
+  /**
+   * All leave requests in a date range, as seen by an admin/supervisor. No empNumber filter: the
+   * shared demo answers 422 "Invalid Parameter" for it, so callers pick their request by id.
+   */
+  async getLeaveRequests({ fromDate, toDate }) {
     const statuses = Object.values(LEAVE_STATUS).map((s) => `statuses[]=${s}`).join('&');
-    return this.call('GET', `/leave/employees/leave-requests?empNumber=${empNumber}&fromDate=${fromDate}&toDate=${toDate}&${statuses}&limit=50`);
+    return this.call('GET', `/leave/employees/leave-requests?fromDate=${fromDate}&toDate=${toDate}&${statuses}&limit=200`);
   }
 
   /** Leave requests of the logged-in employee (call with an employee's session). */

@@ -88,7 +88,7 @@ test.describe.serial('Employee leave approval workflow', () => {
       expect(status).toContain(STATUS.APPROVED);
       expect(status).not.toContain(STATUS.PENDING);
 
-      const requests = await api.getLeaveRequests({ empNumber: employee.empNumber, fromDate: leave.isoDate, toDate: leave.isoDate });
+      const requests = await api.getLeaveRequests({ fromDate: leave.isoDate, toDate: leave.isoDate });
       const approved = requests.find((r) => r.id === captured.request.id);
       expect(approved, 'request is found through the API').toBeDefined();
       expect(approved.leaveBreakdown.map((b) => b.name)).toEqual([STATUS.APPROVED]);

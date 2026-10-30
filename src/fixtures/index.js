@@ -77,7 +77,9 @@ const test = base.test.extend({
       await use(scenario);
       if (scenario.employee.provisioned) {
         const { context, api } = await adminSession(browser);
-        await api.deleteEmployee(scenario.employee.empNumber);
+        // Cleanup must not fail the run: the shared demo may already have reset and removed the employee.
+        await api.deleteEmployee(scenario.employee.empNumber)
+          .catch((error) => logger.warn('Cleanup skipped', { empNumber: scenario.employee.empNumber, reason: error.message }));
         await context.close();
       }
     },

@@ -22,7 +22,10 @@ class LoginPage extends BasePage {
     await this.username.fill(username);
     await this.password.fill(password);
     await this.loginButton.click();
-    await this.header.userMenu.waitFor();
+    // Either the user menu appears or OrangeHRM rejects the login (e.g. the shared demo was reset).
+    const invalid = this.page.getByText('Invalid credentials');
+    await this.header.userMenu.or(invalid).first().waitFor();
+    if (await invalid.isVisible()) throw new Error(`Login rejected for "${username}" (Invalid credentials)`);
     logger.info('Logged in', { username });
   }
 }
