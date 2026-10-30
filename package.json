@@ -1,0 +1,25 @@
+{
+  "name": "orangehrm-leave-approval-automation",
+  "version": "1.0.0",
+  "description": "Playwright (JavaScript) POM automation for the OrangeHRM employee leave approval workflow - Dyad Technologies Scenario 7",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report reports/html",
+    "allure:generate": "allure generate reports/allure-results",
+    "allure:open": "allure open reports/allure-report",
+    "lint": "eslint ."
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.1",
+    "allure": "^3.22.1",
+    "allure-playwright": "^3.14.0",
+    "dotenv": "^18.0.9",
+    "eslint": "^10.13.0",
+    "globals": "^17.13.0"
+  }
+}
